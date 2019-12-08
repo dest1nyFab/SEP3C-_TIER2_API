@@ -15,6 +15,6 @@ namespace SEP3_TIER2_API.Model
 
         }
 
-        public DbSet<Plane> Planes { get; set; }
+        public DbSet<PlaneDTO> Planes { get; set; }
     }
 }

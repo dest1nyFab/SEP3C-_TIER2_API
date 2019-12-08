@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SEP3_TIER2_API\\SEP3_TIER2_API.csproj": {}
+    "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj": {}
   },
   "projects": {
-    "D:\\SEP3_TIER2_API\\SEP3_TIER2_API.csproj": {
+    "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SEP3_TIER2_API\\SEP3_TIER2_API.csproj",
+        "projectUniqueName": "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj",
         "projectName": "SEP3_TIER2_API",
-        "projectPath": "D:\\SEP3_TIER2_API\\SEP3_TIER2_API.csproj",
+        "projectPath": "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj",
         "packagesPath": "C:\\Users\\Fabian\\.nuget\\packages\\",
-        "outputPath": "D:\\SEP3_TIER2_API\\obj\\",
+        "outputPath": "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -41,6 +41,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "Microsoft.AspNet.WebApi.Client": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.0.1, )"

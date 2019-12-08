@@ -1,12 +1,13 @@
-using System;
-using System.Linq;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using SEP3_TIER2_API.Model;
+using SEP3_TIER2_API.Networking;
 using SEP3_TIER2_Client.Model;
-using Microsoft.AspNetCore;
+using System;
+using System.Linq;
 
 namespace SEP3_TIER2_API
 {
@@ -15,38 +16,41 @@ namespace SEP3_TIER2_API
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())
+            Client client = new Client { Ip = "10.152.194.2", Port = 6789 };
+
+            var scope = host.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            try
             {
-                var services = scope.ServiceProvider;
-                try
+                var context = services.GetRequiredService<APIContext>();
+                client.SetupClient(context);
+                context.Database.EnsureCreated();
+                if (!context.Planes.Any())
                 {
-                    var context = services.GetRequiredService<APIContext>();
-                    context.Database.EnsureCreated();
-                    if (!context.Planes.Any())
+                    PlaneDTO plane = new PlaneDTO
                     {
-                        Plane plane = new Plane
-                        {
-                            Airline = "Fab",
-                            Airplane = "tabuz",
-                            ArrivalTime = "poimarti",
-                            DepartureTime = "nu striu sefu",
-                            Delay = "oleaca",
-                            Flight = "de-atata",
-                            Destination = "gura ta",
-                            Origin = "pula mea"
-                        };
-                        context.Add(plane);
-                        context.SaveChanges();
-                    }
-                }
-                catch (Exception e)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(e, "An error has occured!");
+                        CallSign = "Fab",
+                        Model = "tabuz",
+                        ArrivalTime = "poimarti",
+                        DepartureTime = "nu striu sefu",
+                        Delay = "oleaca",
+                        Company = "de-atata",
+                        EndLocation = "gura ta",
+                        StartLocation = "pula mea"
+                    };
+                    context.Add(plane);
+                    context.SaveChanges();
                 }
             }
+            catch (Exception e)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(e, "An error has occured!");
+            }
+
             host.Run();
         }
+
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();

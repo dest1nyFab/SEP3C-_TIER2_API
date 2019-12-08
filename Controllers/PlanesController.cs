@@ -21,7 +21,7 @@ namespace SEP3_TIER2_API.Controllers
 
         // GET: /Planes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Plane>>> GetPlanes()
+        public async Task<ActionResult<IEnumerable<PlaneDTO>>> GetPlanes()
         {
             if (_context.Planes.Count() == 0)
             {
@@ -33,7 +33,7 @@ namespace SEP3_TIER2_API.Controllers
 
         // GET: /Planes/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<Plane>> GetPlane(string id)
+        public async Task<ActionResult<PlaneDTO>> GetPlane(string id)
         {
             var plane = await _context.Planes.FindAsync(id);
             if (plane == null)
@@ -45,7 +45,7 @@ namespace SEP3_TIER2_API.Controllers
 
         // POST: /Planes
         [HttpPost]
-        public async Task<ActionResult<Plane>> PostPlane(Plane plane)
+        public async Task<ActionResult<PlaneDTO>> PostPlane(PlaneDTO plane)
         {
             /* _context.Planes.Add(plane);
              await _context.SaveChangesAsync();
@@ -59,7 +59,7 @@ namespace SEP3_TIER2_API.Controllers
 
     // DELETE: /Planes/id
     [HttpDelete("{id}")]
-    public async Task<ActionResult<Plane>> DeletePlane(string id)
+    public async Task<ActionResult<PlaneDTO>> DeletePlane(string id)
     {
         var plane = await _context.Planes.FindAsync(id);
         if (plane == null)
