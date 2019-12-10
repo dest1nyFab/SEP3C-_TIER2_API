@@ -23,7 +23,7 @@ namespace SEP3_TIER2_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PlaneDTO>>> GetPlanes()
         {
-            if (_context.Planes.Count() == 0)
+            if(_context.Planes.Count() == 0)
             {
                 return NoContent();
             }

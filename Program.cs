@@ -16,31 +16,15 @@ namespace SEP3_TIER2_API
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
-            Client client = new Client { Ip = "10.152.194.2", Port = 6789 };
+            Client client = new Client { Ip = "10.152.194.68", Port = 6789 };
 
             var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
             try
             {
                 var context = services.GetRequiredService<APIContext>();
-                client.SetupClient(context);
                 context.Database.EnsureCreated();
-                if (!context.Planes.Any())
-                {
-                    PlaneDTO plane = new PlaneDTO
-                    {
-                        CallSign = "Fab",
-                        Model = "tabuz",
-                        ArrivalTime = "poimarti",
-                        DepartureTime = "nu striu sefu",
-                        Delay = "oleaca",
-                        Company = "de-atata",
-                        EndLocation = "gura ta",
-                        StartLocation = "pula mea"
-                    };
-                    context.Add(plane);
-                    context.SaveChanges();
-                }
+                client.SetupClient(context);
             }
             catch (Exception e)
             {

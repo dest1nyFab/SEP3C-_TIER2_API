@@ -49,6 +49,30 @@ namespace SEP3_TIER2_API.Networking
         {
             try
             {
+                PlaneDTO plane2 = new PlaneDTO
+                {
+                    CallSign = "Fab2812",
+                    Model = "Airbus A700",
+                    ArrivalTime = "12/28/2005 15:01:30 AM",
+                    DepartureTime = "12/28/2005 10:00:30 AM",
+                    Delay = "-",
+                    Company = "TAROM",
+                    EndLocation = "Sibiu",
+                    StartLocation = "Aalborg"
+                };
+                PlaneDTO plane1 = new PlaneDTO
+                {
+                    CallSign = "Sim1004",
+                    Model = "Airbus A200",
+                    ArrivalTime = "12/28/2005 15:01:30 AM",
+                    DepartureTime = "12/28/2005 10:00:30 AM",
+                    Delay = "-",
+                    Company = "TAROM",
+                    EndLocation = "Zalau",
+                    StartLocation = "Aalborg"
+                };
+                context.Add(plane1);
+                context.Add(plane2);
                 NetworkStream stream = client.GetStream();
                 APIFeedHandler handler = new APIFeedHandler();
                 SendRequest(stream);
