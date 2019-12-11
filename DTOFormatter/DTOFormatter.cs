@@ -1,6 +1,7 @@
 ﻿using SEP3_TIER2_API.Model;
 using SEP3_TIER2_Client.Model;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SEP3_TIER2_API.DTOFormatter
 {
@@ -11,7 +12,11 @@ namespace SEP3_TIER2_API.DTOFormatter
             List<PlaneDTO> planeList = new List<PlaneDTO>();
             foreach (Plane plane in planes)
             {            
-                planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime)});
+                planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime), FlightNumber = plane.FlightPlan.FlightNumber});
+            }
+            foreach (Plane plane in planes)
+            {
+                Debug.Write(plane);
             }
             return planeList;
         }

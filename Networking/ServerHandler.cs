@@ -3,7 +3,6 @@ using SEP3_TIER2_API.Model;
 using SEP3_TIER2_Client.Model;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 
@@ -39,11 +38,9 @@ namespace SEP3_TIER2_API.Networking
             byte[] receiveBytes = new byte[receiveLength];
             stream.Read(receiveBytes);
             String rcv = Encoding.ASCII.GetString(receiveBytes);
-            Debug.WriteLine(rcv);
             JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
             return JsonConvert.DeserializeObject<Request>(rcv, settings);
         }
-
         public void Run()
         {
             NetworkStream stream = client.GetStream();
@@ -61,6 +58,10 @@ namespace SEP3_TIER2_API.Networking
                     context.SaveChanges();
                 }
             }
+        }
+        public static void delete()
+        {
+
         }
     }
 }
