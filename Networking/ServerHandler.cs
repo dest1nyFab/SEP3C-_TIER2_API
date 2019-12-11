@@ -21,7 +21,6 @@ namespace SEP3_TIER2_API.Networking
         {
             this.client = client;
             this.context = context;
-            //Post();
         }
         private void SendRequest(NetworkStream stream)
         {
@@ -49,7 +48,7 @@ namespace SEP3_TIER2_API.Networking
         {
             try
             {
-                PlaneDTO plane2 = new PlaneDTO
+                /*PlaneDTO plane2 = new PlaneDTO
                 {
                     CallSign = "Fab2812",
                     Model = "Airbus A700",
@@ -72,7 +71,7 @@ namespace SEP3_TIER2_API.Networking
                     StartLocation = "Aalborg"
                 };
                 context.Add(plane1);
-                context.Add(plane2);
+                context.Add(plane2);*/
                 NetworkStream stream = client.GetStream();
                 APIFeedHandler handler = new APIFeedHandler();
                 SendRequest(stream);
