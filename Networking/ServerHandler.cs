@@ -1,13 +1,11 @@
-﻿using SEP3_TIER2_API.APIHandler;
+﻿using Newtonsoft.Json;
 using SEP3_TIER2_API.Model;
 using SEP3_TIER2_Client.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
-using System.Text.Json;
-using SEP3_TIER2_API.DTOFormatter;
-using System.Diagnostics;
 
 namespace SEP3_TIER2_API.Networking
 {
@@ -22,17 +20,17 @@ namespace SEP3_TIER2_API.Networking
             this.client = client;
             this.context = context;
         }
+
         private void SendRequest(NetworkStream stream)
         {
             Request request = new Request { Type = "REQUESTPLANES" };
-            var json = JsonSerializer.Serialize(request);
+            var json = JsonConvert.SerializeObject(request);
             int length = Encoding.ASCII.GetByteCount(json);
             byte[] toSendBytes = Encoding.ASCII.GetBytes(json);
             byte[] toSendLengthBytes = BitConverter.GetBytes(length);
             stream.Write(toSendLengthBytes);
             stream.Write(toSendBytes);
         }
-
         private Request ReceiveRequest(NetworkStream stream)
         {
             byte[] receiveLengthBytes = new byte[4];
@@ -41,73 +39,33 @@ namespace SEP3_TIER2_API.Networking
             byte[] receiveBytes = new byte[receiveLength];
             stream.Read(receiveBytes);
             String rcv = Encoding.ASCII.GetString(receiveBytes);
-            return JsonSerializer.Deserialize<Request>(rcv);
+            Debug.WriteLine(rcv);
+            JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
+            return JsonConvert.DeserializeObject<Request>(rcv, settings);
         }
 
         public void Run()
         {
-            try
+            NetworkStream stream = client.GetStream();
+            SendRequest(stream);
+            while (true)
             {
-                /*PlaneDTO plane2 = new PlaneDTO
+                Request request = ReceiveRequest(stream);
+                if (request.Type.Equals("RESPONSEPLANES"))
                 {
-                    CallSign = "Fab2812",
-                    Model = "Airbus A700",
-                    ArrivalTime = "12/28/2005 15:01:30 AM",
-                    DepartureTime = "12/28/2005 10:00:30 AM",
-                    Delay = "-",
-                    Company = "TAROM",
-                    EndLocation = "Sibiu",
-                    StartLocation = "Aalborg"
-                };
-                PlaneDTO plane1 = new PlaneDTO
-                {
-                    CallSign = "Sim1004",
-                    Model = "Airbus A200",
-                    ArrivalTime = "12/28/2005 15:01:30 AM",
-                    DepartureTime = "12/28/2005 10:00:30 AM",
-                    Delay = "-",
-                    Company = "TAROM",
-                    EndLocation = "Zalau",
-                    StartLocation = "Aalborg"
-                };
-                context.Add(plane1);
-                context.Add(plane2);*/
-                NetworkStream stream = client.GetStream();
-                APIFeedHandler handler = new APIFeedHandler();
-                SendRequest(stream);
-                while (true)
-                {
-                    Request request = ReceiveRequest(stream);
-                    if (request.Type.Equals("RESPONSEPLANES"))
+                    planes = DTOFormatter.DTOFormatter.FormatPlanes(request.Planes);
+                    foreach (PlaneDTO plane in planes)
                     {
-                        planes = DTOFormatter.DTOFormatter.FormatPlanes(request.Planes);
-                        foreach (PlaneDTO plane in planes)
-                        {
-                            context.Add(plane);
-                        }
-                        context.SaveChanges();
+                        context.Add(plane);
                     }
+                    context.SaveChanges();
                 }
             }
-            catch(ObjectDisposedException ex)
-            {
-    
-            }
         }
-        /*public async void Post()
-        {
-            APIFeedHandler handler = new APIFeedHandler();
-            foreach (PlaneDTO plane in planes)
-            {
-                Console.WriteLine("%%%%%%%%%%%%");
-                await handler.FeedAPI(plane);
-            }
-        }*/
-    }
-    public class Request
-    {
-        public string Type { get; set; }
-        public List<Plane> Planes { get; set; }
     }
 }
-
+public class Request
+{
+    public string Type { get; set; }
+    public List<Plane> Planes { get; set; }
+}

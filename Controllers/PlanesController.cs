@@ -27,29 +27,13 @@ namespace SEP3_TIER2_API.Controllers
             {
                 return NoContent();
             }
-            //return await _context.Planes.Include(p => p.FlightPlan).Include(p => p.Position).ToListAsync();
             return await _context.Planes.ToListAsync();
-        }
-
-        // GET: /Planes/id
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PlaneDTO>> GetPlane(string id)
-        {
-            var plane = await _context.Planes.FindAsync(id);
-            if (plane == null)
-            {
-                return NotFound();
-            }
-            return plane;
         }
 
         // POST: /Planes
         [HttpPost]
         public async Task<ActionResult<PlaneDTO>> PostPlane(PlaneDTO plane)
         {
-            /* _context.Planes.Add(plane);
-             await _context.SaveChangesAsync();
-             return CreatedAtAction("PostPlane", new { id = plane.CallSign }, plane);*/
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
             _context.Planes.Add(plane);
@@ -57,19 +41,19 @@ namespace SEP3_TIER2_API.Controllers
             return Ok();
         }
 
-        // DELETE: /Planes/id
+        // DELETE: /Planes/CallSign
         [HttpDelete]
         [Route("{CallSign}")]
         public async Task<ActionResult<PlaneDTO>> DeletePlane(string CallSign)
-    {
-        var plane = await _context.Planes.FindAsync(CallSign);
-        if (plane == null)
         {
-            return NotFound();
+            var plane = await _context.Planes.FindAsync(CallSign);
+            if (plane == null)
+            {
+                return NotFound();
+            }
+            _context.Planes.Remove(plane);
+            await _context.SaveChangesAsync();
+            return plane;
         }
-        _context.Planes.Remove(plane);
-        await _context.SaveChangesAsync();
-        return plane;
     }
-}
 }

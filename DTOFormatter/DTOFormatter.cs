@@ -1,9 +1,6 @@
 ﻿using SEP3_TIER2_API.Model;
 using SEP3_TIER2_Client.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SEP3_TIER2_API.DTOFormatter
 {
@@ -13,10 +10,60 @@ namespace SEP3_TIER2_API.DTOFormatter
         {
             List<PlaneDTO> planeList = new List<PlaneDTO>();
             foreach (Plane plane in planes)
-            {
-                planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, Delay = plane.FlightPlan.Delay.Hour.ToString() + ":" + plane.FlightPlan.Delay.Minute.ToString(), DepartureTime = plane.FlightPlan.DepartureTime.ToString("dd/MM/yyyy HH:mm"), ArrivalTime = plane.FlightPlan.ArrivalTime.ToString("dd/MM/yyyy HH:mm") });
+            {            
+                planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime)});
             }
             return planeList;
+        }
+        private static string ConvertTime(FlightDate date)
+        {
+            string s = "";
+            if (date.Day < 10)
+            {
+                s += "0" + date.Day + "/";
+            }
+            else
+            {
+                s += date.Day + "/";
+            }
+            if (date.Month < 10)
+            {
+                s += "0" + date.Month + "/";
+            }
+            else
+            {
+                s += date.Month + "/";
+            }
+
+            s += date.Year + " ";
+
+            if (date.Hour < 10)
+            {
+                s += "0" + date.Hour + ":";
+            }
+            else
+            {
+                s += date.Hour + ":";
+            }
+
+            if (date.Minutes < 10)
+            {
+                s += "0" + date.Minutes + ":";
+            }
+            else
+            {
+                s += date.Minutes + ":";
+            }
+
+            if (date.Seconds < 10)
+            {
+                s += "0" + date.Seconds;
+            }
+            else
+            {
+                s += date.Seconds;
+            }
+            return s;
         }
     }
 }
