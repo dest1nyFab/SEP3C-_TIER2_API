@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj": {}
+    "C:\\Users\\valera\\Documents\\GitHub\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj": {}
   },
   "projects": {
-    "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj": {
+    "C:\\Users\\valera\\Documents\\GitHub\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj",
+        "projectUniqueName": "C:\\Users\\valera\\Documents\\GitHub\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj",
         "projectName": "SEP3_TIER2_API",
-        "projectPath": "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj",
-        "packagesPath": "C:\\Users\\Fabian\\.nuget\\packages\\",
-        "outputPath": "D:\\SEP3_TIER2_API\\SEP3C-_TIER2_API\\obj\\",
+        "projectPath": "C:\\Users\\valera\\Documents\\GitHub\\SEP3C-_TIER2_API\\SEP3_TIER2_API.csproj",
+        "packagesPath": "C:\\Users\\valera\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\valera\\Documents\\GitHub\\SEP3C-_TIER2_API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Fabian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\valera\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

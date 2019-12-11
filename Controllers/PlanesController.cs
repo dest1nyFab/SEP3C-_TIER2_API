@@ -23,7 +23,7 @@ namespace SEP3_TIER2_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PlaneDTO>>> GetPlanes()
         {
-            if(_context.Planes.Count() == 0)
+            if (_context.Planes.Count() == 0)
             {
                 return NoContent();
             }
@@ -57,11 +57,12 @@ namespace SEP3_TIER2_API.Controllers
             return Ok();
         }
 
-    // DELETE: /Planes/id
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<PlaneDTO>> DeletePlane(string id)
+        // DELETE: /Planes/id
+        [HttpDelete]
+        [Route("{CallSign}")]
+        public async Task<ActionResult<PlaneDTO>> DeletePlane(string CallSign)
     {
-        var plane = await _context.Planes.FindAsync(id);
+        var plane = await _context.Planes.FindAsync(CallSign);
         if (plane == null)
         {
             return NotFound();
