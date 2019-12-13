@@ -6,26 +6,21 @@ namespace SEP3_TIER2_Client.Model
     {
         [Key]
         [StringLength(10, MinimumLength = 3)]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         public string CallSign { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         public string Model { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         public string Company { get; set; }
         public int FlightNumber { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         public string StartLocation { get; set; }
 
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         public string EndLocation { get; set; }
 
-        [StringLength(12)]
+        [StringLength(19)]
         public string DepartureTime { get; set; }
 
-        [StringLength(12)]
+        [StringLength(19)]
         public string ArrivalTime { get; set; }
     }
 }

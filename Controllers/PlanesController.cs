@@ -14,10 +14,12 @@ namespace SEP3_TIER2_API.Controllers
     public class PlanesController : ControllerBase
     {
         private readonly APIContext _context;
+        private IServerHandler _handlerContext;
 
-        public PlanesController(APIContext context)
+        public PlanesController(APIContext context, IServerHandler handler)
         {
             _context = context;
+            _handlerContext = handler;
         }
 
         // GET: /Planes
@@ -37,6 +39,10 @@ namespace SEP3_TIER2_API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
+            if(plane.FlightNumber == 0)
+            {
+                plane.FlightNumber = getMaxIndex() + 1;
+            }
             _context.Planes.Add(plane);
             await _context.SaveChangesAsync();
             return Ok();
@@ -55,6 +61,11 @@ namespace SEP3_TIER2_API.Controllers
             _context.Planes.Remove(plane);
             await _context.SaveChangesAsync();
             return plane;
+        }
+
+        private int getMaxIndex()
+        {
+            return _context.Planes.Max(plane => plane.FlightNumber);
         }
     }
 }

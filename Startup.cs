@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using SEP3_TIER2_API.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using SEP3_TIER2_API.Networking;
 
 namespace SEP3_TIER2_API
 {
@@ -22,6 +23,7 @@ namespace SEP3_TIER2_API
         {
             services.AddControllers();
             services.AddDbContext<APIContext>(options => options.UseInMemoryDatabase("database"));
+            services.AddSingleton<IServerHandler, ServerHandler>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

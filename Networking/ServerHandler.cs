@@ -3,16 +3,22 @@ using SEP3_TIER2_API.Model;
 using SEP3_TIER2_Client.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 
 namespace SEP3_TIER2_API.Networking
 {
-    public class ServerHandler
+    public class ServerHandler: IServerHandler
     {
         public TcpClient client;
         public List<PlaneDTO> planes;
         public APIContext context;
+
+        public ServerHandler()
+        {
+
+        }
 
         public ServerHandler(TcpClient client, APIContext context)
         {
@@ -59,9 +65,9 @@ namespace SEP3_TIER2_API.Networking
                 }
             }
         }
-        public static void delete()
+        public void Delete()
         {
-
+            
         }
     }
 }

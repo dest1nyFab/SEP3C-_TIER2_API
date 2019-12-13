@@ -16,7 +16,7 @@ namespace SEP3_TIER2_API
         public static void Main(string[] args)
         {
             var host = CreateWebHostBuilder(args).Build();
-            Client client = new Client { Ip = "192.168.1.202", Port = 6789 };
+            Client client = new Client { Ip = "10.152.194.60", Port = 6789 };
 
             var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;

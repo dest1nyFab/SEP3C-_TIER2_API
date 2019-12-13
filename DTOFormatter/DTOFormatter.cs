@@ -14,10 +14,6 @@ namespace SEP3_TIER2_API.DTOFormatter
             {            
                 planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime), FlightNumber = plane.FlightPlan.FlightNumber});
             }
-            foreach (Plane plane in planes)
-            {
-                Debug.Write(plane);
-            }
             return planeList;
         }
         private static string ConvertTime(FlightDate date)
