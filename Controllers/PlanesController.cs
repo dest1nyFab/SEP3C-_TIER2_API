@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using SEP3_TIER2_API.Model;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SEP3_TIER2_API.Controllers

@@ -1,5 +1,4 @@
-﻿using SEP3_TIER2_API.DTOFormat;
-using SEP3_TIER2_API.Model;
+﻿using SEP3_TIER2_API.Model;
 using System.Diagnostics;
 using System.Net.Sockets;
 using System.Threading;
