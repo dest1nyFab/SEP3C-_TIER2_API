@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SEP3_TIER2_API.Model;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using SEP3_TIER2_API.Networking;
 
 namespace SEP3_TIER2_API

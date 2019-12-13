@@ -1,9 +1,8 @@
 ﻿using Newtonsoft.Json;
+using SEP3_TIER2_API.DTOFormat;
 using SEP3_TIER2_API.Model;
-using SEP3_TIER2_Client.Model;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
 
@@ -11,19 +10,22 @@ namespace SEP3_TIER2_API.Networking
 {
     public class ServerHandler: IServerHandler
     {
-        public TcpClient client;
-        public List<PlaneDTO> planes;
-        public APIContext context;
+        private TcpClient client;
+        private List<FlightPlanDTO> flightPlans;
+        private List<PlaneDTO> planes;
+        private APIContext context;
+        private IDTOFormatter _formatterContext;
 
         public ServerHandler()
         {
-
+            
         }
 
         public ServerHandler(TcpClient client, APIContext context)
         {
             this.client = client;
             this.context = context;
+            _formatterContext = new DTOFormatter();
         }
 
         private void SendRequest(NetworkStream stream)
@@ -56,7 +58,14 @@ namespace SEP3_TIER2_API.Networking
                 Request request = ReceiveRequest(stream);
                 if (request.Type.Equals("RESPONSEPLANES"))
                 {
-                    planes = DTOFormatter.DTOFormatter.FormatPlanes(request.Planes);
+                    flightPlans = _formatterContext.FormatFlightPlanes(request.Planes);
+                    planes = _formatterContext.FormatPlanes(request.Planes);
+                    foreach (FlightPlanDTO flightPlan in flightPlans)
+                    {
+                        context.Add(flightPlan);
+                    }
+                    context.SaveChanges();
+
                     foreach (PlaneDTO plane in planes)
                     {
                         context.Add(plane);

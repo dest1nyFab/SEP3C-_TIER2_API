@@ -1,18 +1,26 @@
 ﻿using SEP3_TIER2_API.Model;
-using SEP3_TIER2_Client.Model;
 using System.Collections.Generic;
-using System.Diagnostics;
 
-namespace SEP3_TIER2_API.DTOFormatter
+namespace SEP3_TIER2_API.DTOFormat
 {
-    public class DTOFormatter
+    public class DTOFormatter:IDTOFormatter
     {
-        public static List<PlaneDTO> FormatPlanes(List<Plane> planes)
+        public List<FlightPlanDTO> FormatFlightPlanes(List<Plane> planes)
+        {
+            List<FlightPlanDTO> planeList = new List<FlightPlanDTO>();
+            foreach (Plane plane in planes)
+            {
+                planeList.Add(new FlightPlanDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime), FlightNumber = plane.FlightPlan.FlightNumber });
+            }
+            return planeList;
+        }
+
+        public List<PlaneDTO> FormatPlanes(List<Plane> planes)
         {
             List<PlaneDTO> planeList = new List<PlaneDTO>();
             foreach (Plane plane in planes)
-            {            
-                planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime), FlightNumber = plane.FlightPlan.FlightNumber});
+            {
+                planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, Status = plane.Status });
             }
             return planeList;
         }
