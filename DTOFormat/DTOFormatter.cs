@@ -10,17 +10,16 @@ namespace SEP3_TIER2_API.DTOFormat
             List<FlightPlanDTO> planeList = new List<FlightPlanDTO>();
             foreach (Plane plane in planes)
             {
-                planeList.Add(new FlightPlanDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime), FlightNumber = plane.FlightPlan.FlightNumber });
+                planeList.Add(new FlightPlanDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime), FlightNumber = plane.FlightPlan.FlightNumber, Status = plane.Status});
             }
             return planeList;
         }
-
         public List<PlaneDTO> FormatPlanes(List<Plane> planes)
         {
             List<PlaneDTO> planeList = new List<PlaneDTO>();
             foreach (Plane plane in planes)
             {
-                planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, Status = plane.Status });
+                planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company});
             }
             return planeList;
         }
