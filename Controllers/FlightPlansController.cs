@@ -38,9 +38,9 @@ namespace SEP3_TIER2_API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
-            if(plane.FlightNumber == 0)
+            if (plane.FlightNumber == 0)
             {
-                plane.FlightNumber = getMaxIndex() + 1;
+                plane.FlightNumber = getFlightPlanIndex();
             }
             _context.FlightPlans.Add(plane);
             await _context.SaveChangesAsync();
@@ -63,9 +63,21 @@ namespace SEP3_TIER2_API.Controllers
             return flightPlan;
         }
 
-        private int getMaxIndex()
+        private int getFlightPlanIndex()
         {
-            return _context.FlightPlans.Max(plane => plane.FlightNumber);
+            int i = 0;
+            foreach (FlightPlanDTO flightPlan in _context.FlightPlans.OrderBy(flightPlan => flightPlan.FlightNumber))
+            {
+                if (i == flightPlan.FlightNumber)
+                {
+                    i++;
+                }
+                else
+                {
+                    return i;
+                }
+            }
+            return _context.FlightPlans.Max(plane => plane.FlightNumber) + 1;
         }
     }
 }
