@@ -10,7 +10,7 @@ namespace SEP3_TIER2_API.DTOFormat
             List<FlightPlanDTO> planeList = new List<FlightPlanDTO>();
             foreach (Plane plane in planes)
             {
-                planeList.Add(new FlightPlanDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime), FlightNumber = plane.FlightPlan.FlightNumber, Status = plane.Status});
+                planeList.Add(new FlightPlanDTO { CallSign = plane.FlightPlan.CallSign, Model = plane.Model, Company = plane.Company, FlightNumber = plane.FlightPlan.FlightNumber, StartLocation = plane.FlightPlan.StartLocation, EndLocation = plane.FlightPlan.EndLocation, DepartureTime = ConvertTime(plane.FlightPlan.DepartureTime), ArrivalTime = ConvertTime(plane.FlightPlan.ArrivalTime), Status = plane.Status});
             }
             return planeList;
         }
@@ -19,7 +19,7 @@ namespace SEP3_TIER2_API.DTOFormat
             List<PlaneDTO> planeList = new List<PlaneDTO>();
             foreach (Plane plane in planes)
             {
-                planeList.Add(new PlaneDTO { CallSign = plane.CallSign, Model = plane.Model, Company = plane.Company});
+                planeList.Add(new PlaneDTO { RegistrationNo =plane.RegistrationNo, Model = plane.Model, Company = plane.Company});
             }
             return planeList;
         }

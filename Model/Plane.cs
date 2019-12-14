@@ -2,7 +2,7 @@
 {
     public class Plane
     {
-        public string CallSign { get; set; }
+        public string RegistrationNo { get; set; }
         public string Model { get; set; }
         public string Company { get; set; }
         public FlightPlan FlightPlan { get; set; }
@@ -10,7 +10,7 @@
         public string Status { get; set; }
         public override string ToString()
         {
-            return $"CallSign: {CallSign} \nModel:{Model} \nCompany: {Company} \nFlightPlan: {FlightPlan} \nPosition: {Position} \nStatus: {Status}";
+            return $"RegNo: {RegistrationNo} \nModel:{Model} \nCompany: {Company} \nFlightPlan: {FlightPlan} \nPosition: {Position} \nStatus: {Status}";
         }
     }
 }
