@@ -52,14 +52,15 @@ namespace SEP3_TIER2_API.Controllers
         [Route("{CallSign}")]
         public async Task<ActionResult<FlightPlanDTO>> DeletePlane(string CallSign)
         {
-            var plane = await _context.FlightPlans.FindAsync(CallSign);
-            if (plane == null)
+            var flightPlan = await _context.FlightPlans.FindAsync(CallSign);
+            if (flightPlan == null)
             {
                 return NotFound();
             }
-            _context.FlightPlans.Remove(plane);
+            _context.FlightPlans.Remove(flightPlan);
+            _handlerContext.Delete();
             await _context.SaveChangesAsync();
-            return plane;
+            return flightPlan;
         }
 
         private int getMaxIndex()
