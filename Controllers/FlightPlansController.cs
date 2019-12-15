@@ -58,8 +58,8 @@ namespace SEP3_TIER2_API.Controllers
                 return NotFound();
             }
             _context.FlightPlans.Remove(flightPlan);
-            _handlerContext.Delete();
             await _context.SaveChangesAsync();
+            _handlerContext.DeleteFlightPlan(flightPlan.CallSign);
             return flightPlan;
         }
 

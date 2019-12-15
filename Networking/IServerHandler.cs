@@ -2,6 +2,6 @@
 {
     public interface IServerHandler
     {
-        void Delete();
+        void DeleteFlightPlan(string callSign);
     }
 }

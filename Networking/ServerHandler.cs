@@ -8,7 +8,7 @@ using System.Text;
 
 namespace SEP3_TIER2_API.Networking
 {
-    public class ServerHandler: IServerHandler
+    public class ServerHandler : IServerHandler
     {
         private TcpClient client;
         private List<FlightPlanDTO> flightPlans;
@@ -18,7 +18,7 @@ namespace SEP3_TIER2_API.Networking
 
         public ServerHandler()
         {
-            
+            client = new TcpClient ("10.152.193.255", 6789);
         }
 
         public ServerHandler(TcpClient client, APIContext context)
@@ -31,6 +31,16 @@ namespace SEP3_TIER2_API.Networking
         private void SendRequest(NetworkStream stream)
         {
             Request request = new Request { Type = "REQUESTPLANES" };
+            var json = JsonConvert.SerializeObject(request);
+            int length = Encoding.ASCII.GetByteCount(json);
+            byte[] toSendBytes = Encoding.ASCII.GetBytes(json);
+            byte[] toSendLengthBytes = BitConverter.GetBytes(length);
+            stream.Write(toSendLengthBytes);
+            stream.Write(toSendBytes);
+        }
+        private void SendDeleteFlightPlanRequest(NetworkStream stream, string callSign)
+        {
+            Request request = new Request { Type = "DELETEFLIGHTPLAN", flightPlanToDelete = callSign};
             var json = JsonConvert.SerializeObject(request);
             int length = Encoding.ASCII.GetByteCount(json);
             byte[] toSendBytes = Encoding.ASCII.GetBytes(json);
@@ -53,30 +63,29 @@ namespace SEP3_TIER2_API.Networking
         {
             NetworkStream stream = client.GetStream();
             SendRequest(stream);
-            while (true)
+            Request request = ReceiveRequest(stream);
+            if (request.Type.Equals("RESPONSEPLANES"))
             {
-                Request request = ReceiveRequest(stream);
-                if (request.Type.Equals("RESPONSEPLANES"))
+                flightPlans = _formatterContext.FormatFlightPlanes(request.Planes);
+                planes = _formatterContext.FormatPlanes(request.Planes);
+                foreach (FlightPlanDTO flightPlan in flightPlans)
                 {
-                    flightPlans = _formatterContext.FormatFlightPlanes(request.Planes);
-                    planes = _formatterContext.FormatPlanes(request.Planes);
-                    foreach (FlightPlanDTO flightPlan in flightPlans)
-                    {
-                        context.Add(flightPlan);
-                    }
-                    context.SaveChanges();
-
-                    foreach (PlaneDTO plane in planes)
-                    {
-                        context.Add(plane);
-                    }
-                    context.SaveChanges();
+                    context.Add(flightPlan);
                 }
+                context.SaveChanges();
+
+                foreach (PlaneDTO plane in planes)
+                {
+                    context.Add(plane);
+                }
+                context.SaveChanges();
             }
+            client.Close();
         }
-        public void Delete()
+
+        public void DeleteFlightPlan(string callSign)
         {
-            
+            SendDeleteFlightPlanRequest(client.GetStream(), callSign);
         }
     }
 }
@@ -84,4 +93,5 @@ public class Request
 {
     public string Type { get; set; }
     public List<Plane> Planes { get; set; }
+    public string flightPlanToDelete { get; set; }
 }
