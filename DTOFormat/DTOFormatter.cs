@@ -19,7 +19,7 @@ namespace SEP3_TIER2_API.DTOFormat
             List<PlaneDTO> planeList = new List<PlaneDTO>();
             foreach (Plane plane in planes)
             {
-                planeList.Add(new PlaneDTO { RegistrationNo =plane.RegistrationNo, Model = plane.Model, Company = plane.Company});
+                planeList.Add(new PlaneDTO { RegistrationNo =plane.RegistrationNo, Model = plane.Model, Company = plane.Company, Status = plane.Status});
             }
             return planeList;
         }
