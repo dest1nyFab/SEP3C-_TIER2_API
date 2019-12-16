@@ -49,17 +49,6 @@ namespace SEP3_TIER2_API.Networking
             stream.Write(toSendBytes);
         }
 
-        private void SendAddFlightPlanRequest(NetworkStream stream, Plane planeWithPlan)
-        {
-            Request request = new Request { Type = "ADDFLIGHTPLAN", Planes = new List<Plane> { planeWithPlan} };
-            var json = JsonConvert.SerializeObject(request);
-            int length = Encoding.ASCII.GetByteCount(json);
-            byte[] toSendBytes = Encoding.ASCII.GetBytes(json);
-            byte[] toSendLengthBytes = BitConverter.GetBytes(length);
-            stream.Write(toSendLengthBytes);
-            stream.Write(toSendBytes);
-        }
-
         private Request ReceiveRequest(NetworkStream stream)
         {
             byte[] receiveLengthBytes = new byte[4];
@@ -71,6 +60,7 @@ namespace SEP3_TIER2_API.Networking
             JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All };
             return JsonConvert.DeserializeObject<Request>(rcv, settings);
         }
+
         public void Run()
         {
             NetworkStream stream = client.GetStream();
@@ -93,12 +83,6 @@ namespace SEP3_TIER2_API.Networking
                 context.SaveChanges();
             }
             client.Close();
-        }
-
-        public void AddFlightPlan(Plane planeWithPlan)
-        {
-            
-            SendAddFlightPlanRequest(client.GetStream(), planeWithPlan);
         }
 
         public void DeleteFlightPlan(string callSign)

@@ -2,10 +2,10 @@
 
 namespace SEP3_TIER2_API.Model
 {
-    public class APIContext: DbContext
+    public class APIContext : DbContext
     {
 
-        public APIContext(DbContextOptions<APIContext> options): base(options)
+        public APIContext(DbContextOptions<APIContext> options) : base(options)
         {
 
         }
