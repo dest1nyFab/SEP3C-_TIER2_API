@@ -8,6 +8,7 @@
         public FlightPlan FlightPlan { get; set; }
         public Position PlanePosition { get; set; }
         public string Status { get; set; }
+
         public override string ToString()
         {
             return $"RegNo: {RegistrationNo} \nModel:{Model} \nCompany: {Company} \nFlightPlan: {FlightPlan} \nPosition: {PlanePosition} \nStatus: {Status}";

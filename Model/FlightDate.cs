@@ -5,6 +5,7 @@
         public int Day { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
+
         public FlightDate(int Day, int Month, int Year, int Hour, int Minutes, int Seconds) : base(Seconds, Minutes, Hour)
         {
             this.Day = Day;

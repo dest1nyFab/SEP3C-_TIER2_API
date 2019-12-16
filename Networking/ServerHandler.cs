@@ -18,7 +18,7 @@ namespace SEP3_TIER2_API.Networking
 
         public ServerHandler()
         {
-            client = new TcpClient ("10.152.194.103", 6789);
+            client = new TcpClient("192.168.1.202", 6789);
         }
 
         public ServerHandler(TcpClient client, APIContext context)
@@ -51,7 +51,7 @@ namespace SEP3_TIER2_API.Networking
 
         private void SendAddFlightPlanRequest(NetworkStream stream, Plane planeWithPlan)
         {
-            Request request = new Request { Type = "DELETEFLIGHTPLAN", Planes = new List<Plane> {planeWithPlan } };
+            Request request = new Request { Type = "ADDFLIGHTPLAN", Planes = new List<Plane> { planeWithPlan} };
             var json = JsonConvert.SerializeObject(request);
             int length = Encoding.ASCII.GetByteCount(json);
             byte[] toSendBytes = Encoding.ASCII.GetBytes(json);
@@ -97,6 +97,7 @@ namespace SEP3_TIER2_API.Networking
 
         public void AddFlightPlan(Plane planeWithPlan)
         {
+            
             SendAddFlightPlanRequest(client.GetStream(), planeWithPlan);
         }
 

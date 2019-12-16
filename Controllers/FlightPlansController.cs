@@ -23,7 +23,7 @@ namespace SEP3_TIER2_API.Controllers
 
         // GET: /FlightPlans
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FlightPlanDTO>>> GetPlanes()
+        public async Task<ActionResult<IEnumerable<FlightPlanDTO>>> GetFlightPlans()
         {
             if (!_context.FlightPlans.Any())
             {
@@ -34,7 +34,7 @@ namespace SEP3_TIER2_API.Controllers
 
         // POST: /FlightPlans
         [HttpPost]
-        public async Task<ActionResult<FlightPlanDTO>> PostPlane(FlightPlanDTO flightPlan)
+        public async Task<ActionResult<FlightPlanDTO>> PostFlightPlan(FlightPlanDTO flightPlan)
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
@@ -49,7 +49,7 @@ namespace SEP3_TIER2_API.Controllers
             var startDate = new FlightDate(int.Parse(flightPlan.ArrivalTime.Substring(0, 2)), int.Parse(flightPlan.ArrivalTime.Substring(3, 2)), int.Parse(flightPlan.ArrivalTime.Substring(6, 4)), int.Parse(flightPlan.ArrivalTime.Substring(11, 2)), int.Parse(flightPlan.ArrivalTime.Substring(14, 2)), int.Parse(flightPlan.ArrivalTime.Substring(17, 2)));
             var endDate = new FlightDate(int.Parse(flightPlan.DepartureTime.Substring(0, 2)), int.Parse(flightPlan.DepartureTime.Substring(3, 2)), int.Parse(flightPlan.DepartureTime.Substring(6, 4)), int.Parse(flightPlan.DepartureTime.Substring(11, 2)), int.Parse(flightPlan.DepartureTime.Substring(14, 2)), int.Parse(flightPlan.DepartureTime.Substring(17, 2)));
             var flightPlanToSend = new FlightPlan { CallSign = flightPlan.CallSign, FlightNumber = flightPlan.FlightNumber, StartLocation = flightPlan.StartLocation, EndLocation = flightPlan.EndLocation, ArrivalTime = startDate, DepartureTime = endDate};
-            var planeWithPlan = new Plane { Company = plane.Company, FlightPlan = flightPlanToSend, Model = plane.Model, Status = plane.Status, RegistrationNo = plane.RegistrationNo };
+            var planeWithPlan = new Plane { Company = plane.Company, FlightPlan = flightPlanToSend, Model = plane.Model, Status = plane.Status, RegistrationNo = plane.RegistrationNo};
             _handlerContext.AddFlightPlan(planeWithPlan);
             return Ok();
         }
@@ -57,7 +57,7 @@ namespace SEP3_TIER2_API.Controllers
         // DELETE: /FlightPlans/CallSign
         [HttpDelete]
         [Route("{CallSign}")]
-        public async Task<ActionResult<FlightPlanDTO>> DeletePlane(string CallSign)
+        public async Task<ActionResult<FlightPlanDTO>> DeleteFlightPlan(string CallSign)
         {
             var flightPlan = await _context.FlightPlans.FindAsync(CallSign);
             if (flightPlan == null)
