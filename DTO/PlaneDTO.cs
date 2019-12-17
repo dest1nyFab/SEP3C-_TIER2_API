@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SEP3_TIER2_API.Model
+namespace SEP3_TIER2_API.DTO
 {
     public class PlaneDTO
     {

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SEP3_TIER2_API.Context;
+using SEP3_TIER2_API.DTO;
 using SEP3_TIER2_API.Model;
 using SEP3_TIER2_API.Networking;
 using System.Collections.Generic;

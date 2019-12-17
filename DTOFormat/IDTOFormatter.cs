@@ -1,4 +1,5 @@
-﻿using SEP3_TIER2_API.Model;
+﻿using SEP3_TIER2_API.DTO;
+using SEP3_TIER2_API.Model;
 using System.Collections.Generic;
 
 namespace SEP3_TIER2_API.DTOFormat

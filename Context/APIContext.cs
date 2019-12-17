@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SEP3_TIER2_API.DTO;
+using SEP3_TIER2_API.Model;
 
-namespace SEP3_TIER2_API.Model
+namespace SEP3_TIER2_API.Context
 {
     public class APIContext : DbContext
     {
