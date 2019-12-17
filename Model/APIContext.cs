@@ -12,5 +12,10 @@ namespace SEP3_TIER2_API.Model
 
         public DbSet<FlightPlanDTO> FlightPlans { get; set; }
         public DbSet<PlaneDTO> Planes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<FlightPlanDTO>().HasKey(fp => new {fp.CallSign, fp.FlightNumber });      
+        }
     }
 }

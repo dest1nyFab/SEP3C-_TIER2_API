@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SEP3_TIER2_API.Model;
 using SEP3_TIER2_API.Networking;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,10 +39,6 @@ namespace SEP3_TIER2_API.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest("Invalid data.");
-            if (flightPlan.FlightNumber == 0)
-            {
-                flightPlan.FlightNumber = getFlightPlanIndex();
-            }
             var plane = _context.Planes.Single(p => p.RegistrationNo.Equals(flightPlan.Model));
             flightPlan.Model = plane.Model;
             _context.FlightPlans.Add(flightPlan);
@@ -51,10 +48,10 @@ namespace SEP3_TIER2_API.Controllers
 
         // DELETE: /FlightPlans/CallSign
         [HttpDelete]
-        [Route("{CallSign}")]
-        public async Task<ActionResult<FlightPlanDTO>> DeleteFlightPlan(string CallSign)
+        [Route("{CallSign}/{FlightNumber}")]
+        public async Task<ActionResult<FlightPlanDTO>> DeleteFlightPlan(string CallSign, int FlightNumber)
         {
-            var flightPlan = await _context.FlightPlans.FindAsync(CallSign);
+            var flightPlan =  _context.FlightPlans.Single(p => (p.CallSign.Equals(CallSign) && (p.FlightNumber == FlightNumber)));
             if (flightPlan == null)
             {
                 return NotFound();
@@ -65,7 +62,7 @@ namespace SEP3_TIER2_API.Controllers
             return flightPlan;
         }
 
-        private int getFlightPlanIndex()
+        /*private int getFlightPlanIndex()
         {
             int i = 0;
             foreach (FlightPlanDTO flightPlan in _context.FlightPlans.OrderBy(flightPlan => flightPlan.FlightNumber))
@@ -80,6 +77,6 @@ namespace SEP3_TIER2_API.Controllers
                 }
             }
             return _context.FlightPlans.Max(plane => plane.FlightNumber) + 1;
-        }
+        }*/
     }
 }

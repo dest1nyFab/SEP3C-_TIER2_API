@@ -4,7 +4,7 @@ namespace SEP3_TIER2_API.Model
 {
     public class FlightPlanDTO
     {
-        [Key]
+        
         [StringLength(10, MinimumLength = 3)]
         public string CallSign { get; set; }
         public string Model { get; set; }

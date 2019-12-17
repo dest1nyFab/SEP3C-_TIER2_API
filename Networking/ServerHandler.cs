@@ -18,7 +18,7 @@ namespace SEP3_TIER2_API.Networking
 
         public ServerHandler()
         {
-            client = new TcpClient("192.168.1.202", 6789);
+            client = new TcpClient("10.152.194.97", 6789);
         }
 
         public ServerHandler(TcpClient client, APIContext context)
